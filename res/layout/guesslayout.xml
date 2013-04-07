@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- <LinearLayout
+        android:id="@+id/guessll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+	 -->
+        <RadioGroup
+            android:id="@+id/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/near"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:text="@string/neartext"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:text="@string/friendtext"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/luck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:text="@string/lucktext"
+                android:textSize="13sp" />
+
+        </RadioGroup>
+
+        <!-- <Button
+            android:id="@+id/getnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/getnew" />
+
+    </LinearLayout> -->
+
+    <fragment
+        android:id="@+id/map_guess"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/radio" />
+
+</RelativeLayout>

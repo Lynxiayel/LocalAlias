@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+		<TextView
+		android:id="@+id/guesslabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/location"
+        android:textSize="20sp"
+        android:textIsSelectable="true"
+        android:layout_marginBottom="8dp"
+        />
+		<TextView
+        android:id="@+id/guesslocname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/guesslabel"
+        android:layout_alignRight="@id/guesslabel"
+        android:layout_below="@id/guesslabel"
+        android:singleLine="false"
+    	android:lines="8"
+    	android:minLines="3"
+    	android:layout_marginBottom="20dp"
+        android:textIsSelectable="true"
+        />
+		<TextView
+        android:id="@+id/guessaliaslabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/guesslabel"
+        android:layout_alignRight="@id/guesslabel"
+        android:layout_below="@id/guesslocname"
+        android:textIsSelectable="true"
+        android:textSize="20sp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/guesslabel"
+        />
+		<EditText
+         android:id="@+id/newguess"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@id/guesslabel"
+         android:layout_alignRight="@id/guesslabel"
+         android:layout_below="@id/guessaliaslabel"
+         android:layout_marginBottom="30dp"
+         android:hint="@string/guesshint"
+         android:lines="8"
+    	android:minLines="2"
+         />
+
+		<Button
+		    android:id="@+id/guesscancel"
+		    android:layout_width="130dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignLeft="@id/guesslabel"
+		    android:layout_below="@id/newguess"
+		    android:text="@string/cancel" />
+		    
+		<Button
+		    android:id="@+id/guesssubmit"
+		    android:layout_width="130dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignRight="@id/guesslabel"
+		    android:layout_below="@id/newguess"
+		    android:text="@string/submit" />
+
+</RelativeLayout>

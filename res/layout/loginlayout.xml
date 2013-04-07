@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcometext"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_title"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/username"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/usernameedit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_alignLeft="@id/username"
+        android:layout_alignRight="@id/username"
+        android:hint="@string/unhint"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="20dp"
+        android:nextFocusDown="@+id/password" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameedit"
+        android:layout_alignLeft="@id/username"
+        android:layout_alignRight="@id/username"
+        android:text="@string/password"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/passwordedit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_alignLeft="@id/usernameedit"
+        android:layout_alignRight="@id/usernameedit"
+        android:hint="@string/pwhint"
+        android:nextFocusDown="@+id/rememberme"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/rememberme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:nextFocusDown="@+id/loginbtn"
+        android:layout_below="@id/passwordedit"
+        android:layout_alignLeft="@id/passwordedit"
+        android:layout_marginBottom="45dp"
+        android:text="@string/rememberme" />
+
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/login_title"
+        android:layout_below="@id/rememberme"
+        android:text="@string/login"
+        android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+
+    <Button
+        android:id="@+id/regbtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/login_title"
+        android:layout_below="@id/rememberme"
+        android:text="@string/register"
+    	android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+
+</RelativeLayout>

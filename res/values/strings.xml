@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LocalAlias</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="unhint">Enter username here.</string>
+    <string name="pwhint">Enter password here.</string>
+    <string name="welcometext">"Welcome to LocalAlias"</string>
+    <string name="rememberme">"Remember me"</string>
+	<string name="pwconfirm">"Confirm password"</string>
+	<string name="pwconfirmhint">"Enter password again."</string>
+	<string name="done">"Done"</string>
+	<string name="submit">"Submit"</string>
+	<string name="cancel">"Cancel"</string>
+	<string name="registertext">"Register a new account"</string>
+	<string name="searchhint">"Use keywords to search"</string>
+	<string name="search">"Search"</string>
+	<string name="go">"Go"</string>
+	<string name="neartext">"Near me"</string>
+	<string name="friendtext">"From friends"</string>
+	<string name="lucktext">"Lucky"</string>
+	<string name="getnew">"Get New"</string>
+	<string name="ok">"OK"</string>
+	<string name="location">"Selected Location"</string>
+	<string name="aliaslabel">"New Alias"</string>
+	<string name="guesslabel">"New Guess"</string>
+	<string name="aliashint">"Input the alias for this location"</string>
+	<string name="guesshint">"Input your guessed alias here"</string>
+	<string name="scorelabel">"Your current coins"</string>
+	<string name="edittitle">"Edit your password"</string>
+	<string name="newpassword">New Password</string>
+	<string name="action_logout">Logout</string>
+	<string name="about">About</string>
+</resources>

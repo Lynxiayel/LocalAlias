@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/map_add_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" /> <!-- used to avoid search get focus at start -->
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/searchhint"
+            android:nextFocusUp="@id/search" 
+            android:nextFocusLeft="@id/search" />
+
+        <Button
+            android:id="@+id/searchbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go" />
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/map_add"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll"
+        android:tag="add" />
+    <!--
+          <LinearLayout 
+          android:id="@+id/map_add"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@id/search"
+          />
+    -->
+
+</RelativeLayout>

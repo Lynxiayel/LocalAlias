@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView 
+        android:id="@+id/profilenamelabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp" 
+        android:text="@string/username"
+        android:textAppearance="?android:textAppearanceMedium"
+        />
+    
+    <TextView 
+        android:id="@+id/profileusername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_alignLeft="@id/profilenamelabel"
+		android:layout_alignRight="@id/profilenamelabel"
+		android:layout_below="@id/profilenamelabel"
+		android:layout_marginBottom="8dp" 
+        />
+    <Button
+        android:id="@+id/editpw"
+        android:text="Edit password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_below="@id/profileusername"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="20dp" 
+     	/>
+    
+    <TextView
+        android:id="@+id/profilescorelabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_below="@id/editpw"
+		android:layout_alignLeft="@id/profilenamelabel"
+		android:layout_alignRight="@id/profilenamelabel"
+		android:layout_marginBottom="8dp"
+		android:text="@string/scorelabel"
+		android:textAppearance="?android:textAppearanceMedium"
+		/>
+    <TextView
+        android:id="@+id/profilescore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_alignLeft="@id/profileusername"
+		android:layout_alignRight="@id/profileusername"
+		android:layout_below="@id/profilescorelabel"
+		android:layout_marginBottom="20dp"
+		/>
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+	
+    <!-- <TextView
+        android:id="@+id/editpw_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/edittitle"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp" />
+     -->
+    <TextView
+        android:id="@+id/editpwlabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+		android:layout_marginTop="120dp"
+        android:text="@string/newpassword"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/editpw"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editpwlabel"
+		android:layout_alignLeft="@id/editpwlabel"
+        android:layout_alignRight="@id/editpwlabel"
+        android:hint="@string/pwhint"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/editpwconflabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editpw"
+        android:layout_alignLeft="@id/editpwlabel"
+        android:layout_alignRight="@id/editpwlabel"
+        android:text="@string/pwconfirm"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/editpwconfirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editpwconflabel"
+        android:layout_alignLeft="@id/editpwlabel"
+        android:layout_alignRight="@id/editpwlabel"
+        android:layout_gravity="center_vertical"
+        android:hint="@string/pwconfirmhint"
+        android:layout_marginBottom="45dp"
+        android:inputType="textPassword" />
+
+     <Button
+        android:id="@+id/editpwcancel"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editpwconfirm"
+        android:layout_alignLeft="@id/editpwlabel"
+        android:text="@string/cancel"
+        android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+    
+    <Button
+        android:id="@+id/editpwsubmit"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editpwconfirm"
+        android:layout_alignRight="@id/editpwlabel"
+        android:text="@string/submit"
+        android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+</RelativeLayout>

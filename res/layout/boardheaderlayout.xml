@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <TextView android:id="@+id/headeruser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:text="@string/username"
+        android:gravity="center"
+        />
+    <TextView android:id="@+id/headerscore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6"
+        android:text="Coins"
+        android:gravity="center"/> 
+</LinearLayout>

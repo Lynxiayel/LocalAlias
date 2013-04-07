@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/register_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/registertext"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:id="@+id/regunlabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_title"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/username"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/regun"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regunlabel"
+        android:layout_alignLeft="@id/regunlabel"
+        android:layout_alignRight="@id/regunlabel"
+        android:layout_marginBottom="20dp"
+        android:hint="@string/unhint" />
+
+    <TextView
+        android:id="@+id/regpwlabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/regunlabel"
+        android:layout_alignRight="@id/regunlabel"
+		android:layout_below="@id/regun"
+        android:text="@string/password"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/regpw"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regpwlabel"
+		android:layout_alignLeft="@id/regunlabel"
+        android:layout_alignRight="@id/regunlabel"
+        android:hint="@string/pwhint"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/regpwconflabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regpw"
+        android:layout_alignLeft="@id/regunlabel"
+        android:layout_alignRight="@id/regunlabel"
+        android:text="@string/pwconfirm"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/regpwconfirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regpwconflabel"
+        android:layout_alignLeft="@id/regunlabel"
+        android:layout_alignRight="@id/regunlabel"
+        android:layout_gravity="center_vertical"
+        android:hint="@string/pwconfirmhint"
+        android:layout_marginBottom="45dp"
+        android:inputType="textPassword" />
+
+     <Button
+        android:id="@+id/regcancel"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regpwconfirm"
+        android:layout_alignLeft="@id/register_title"
+        android:text="@string/cancel"
+        android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+    
+    <Button
+        android:id="@+id/regsubmit"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regpwconfirm"
+        android:layout_alignRight="@id/register_title"
+        android:text="@string/submit"
+        android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+
+   
+
+
+</RelativeLayout>
