@@ -3,70 +3,96 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-		<TextView
-		android:id="@+id/guesslabel"
+
+    <TextView
+        android:id="@+id/guesslabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="140dp"
         android:text="@string/location"
-        android:textSize="20sp"
         android:textIsSelectable="true"
-        android:layout_marginBottom="8dp"
-        />
-		<TextView
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/guesslocname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/guesslabel"
         android:layout_alignRight="@id/guesslabel"
         android:layout_below="@id/guesslabel"
+        android:layout_marginBottom="5dp"
+        android:lines="8"
+        android:minLines="1"
         android:singleLine="false"
-    	android:lines="8"
-    	android:minLines="3"
-    	android:layout_marginBottom="20dp"
-        android:textIsSelectable="true"
+        android:textIsSelectable="true" />
+
+    <LinearLayout
+        android:id="@+id/aliasauthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/guesslocname"
+        android:orientation="horizontal" 
+        android:layout_alignLeft="@id/guesslabel"
+        android:layout_alignRight="@id/guesslabel"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/authorlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author"
+            android:layout_marginRight="3dp"
         />
-		<TextView
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:clickable="true"
+             />
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/guessaliaslabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/guesslabel"
         android:layout_alignRight="@id/guesslabel"
-        android:layout_below="@id/guesslocname"
-        android:textIsSelectable="true"
-        android:textSize="20sp"
+        android:layout_below="@id/aliasauthor"
         android:layout_marginBottom="8dp"
         android:text="@string/guesslabel"
-        />
-		<EditText
-         android:id="@+id/newguess"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@id/guesslabel"
-         android:layout_alignRight="@id/guesslabel"
-         android:layout_below="@id/guessaliaslabel"
-         android:layout_marginBottom="30dp"
-         android:hint="@string/guesshint"
-         android:lines="8"
-    	android:minLines="2"
-         />
+        android:textIsSelectable="true"
+        android:textSize="20sp" />
 
-		<Button
-		    android:id="@+id/guesscancel"
-		    android:layout_width="130dp"
-		    android:layout_height="wrap_content"
-		    android:layout_alignLeft="@id/guesslabel"
-		    android:layout_below="@id/newguess"
-		    android:text="@string/cancel" />
-		    
-		<Button
-		    android:id="@+id/guesssubmit"
-		    android:layout_width="130dp"
-		    android:layout_height="wrap_content"
-		    android:layout_alignRight="@id/guesslabel"
-		    android:layout_below="@id/newguess"
-		    android:text="@string/submit" />
+    <EditText
+        android:id="@+id/newguess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/guesslabel"
+        android:layout_alignRight="@id/guesslabel"
+        android:layout_below="@id/guessaliaslabel"
+        android:layout_marginBottom="30dp"
+        android:hint="@string/guesshint"
+        android:lines="8"
+        android:minLines="2" />
+
+    <Button
+        android:id="@+id/guesscancel"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/guesslabel"
+        android:layout_below="@id/newguess"
+        android:text="@string/cancel" />
+
+    <Button
+        android:id="@+id/guesssubmit"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/guesslabel"
+        android:layout_below="@id/newguess"
+        android:text="@string/submit" />
 
 </RelativeLayout>

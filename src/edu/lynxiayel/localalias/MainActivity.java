@@ -21,11 +21,14 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -66,13 +69,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.janrain.android.engage.JREngage;
+import com.janrain.android.engage.JREngageDelegate;
+import com.janrain.android.engage.types.JRDictionary;
+
+import edu.lynxiayel.localalias.NewGuess.AddFriendTask;
 
 public class MainActivity extends Activity {
-	private final String NEAR_HOST = "http://lyntwip.sourceforge.net/localalias/near.php";
-	private final String LUCKY_HOST = "http://lyntwip.sourceforge.net/localalias/lucky.php";
-	private final String FRIEND_HOST = "http://lyntwip.sourceforge.net/localalias/friend.php";
-	private final String HOST_GETSCORE = "http://lyntwip.sourceforge.net/localalias/getscore.php";
-	private final String HOST_GETBOARD = "http://lyntwip.sourceforge.net/localalias/getboard.php";
+	private final String NEAR_HOST = "http://localalias.sourceforge.net/near.php";
+	private final String LUCKY_HOST = "http://localalias.sourceforge.net/lucky.php";
+	private final String FRIEND_HOST = "http://localalias.sourceforge.net/friend.php";
+	private final String HOST_GETSCORE = "http://localalias.sourceforge.net/getscore.php";
+	private final String HOST_GETBOARD = "http://localalias.sourceforge.net/getboard.php";
+	private final String HOST_ADDFRIEND = "http://localalias.sourceforge.net/addfriend.php";
 	public static Context ctxt;
 	private final static String TAG = "MAIN";
 	private static EditText keywords;
@@ -106,6 +115,7 @@ public class MainActivity extends Activity {
 	private static String un;
 	private static OnCheckedChangeListener radioCheckedChangeListener;
 	private static OnClickListener luckyClickListener;
+	private String author;
 	private Map<String, String> markerAliases;
 	private Map<String, String> markerUsername;
 	private Map<String, String> topUserMap = null;
@@ -117,10 +127,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.mainlayout);
-		ctxt = this.getBaseContext();
+		ctxt = this;
 		un = getIntent().getStringExtra("un");
-		pref=new Preference();
+		pref = new Preference();
 		pref.init(ctxt);
+
 		Log.i(TAG, "get username at start: " + un);
 		// keywords = (EditText) findViewById(R.id.search);
 		// srcBtn = (Button) findViewById(R.id.searchbtn);
@@ -308,12 +319,13 @@ public class MainActivity extends Activity {
 			}
 
 		};
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-//		super.onCreateOptionsMenu(menu);
+		// super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.my_options_menu, menu);
 		return true;
@@ -331,9 +343,16 @@ public class MainActivity extends Activity {
 			finish();
 			return true;
 		case R.id.action_about:
-			Intent in=new Intent();
+			Intent in = new Intent();
 			in.setClass(ctxt, About.class);
 			startActivity(in);
+			return true;
+		case R.id.action_exit:
+			map_add = null;
+			map_add_pos = null;
+			map_guess = null;
+			map_guess_pos = null;
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -396,9 +415,11 @@ public class MainActivity extends Activity {
 			super.onActivityCreated(savedInstanceState);
 			LatLng currentLoc = new LatLng(currentLatitude, currentLongtitude);
 			if (map_add_pos == null) {
+				// Log.i(TAG,"1");
 				map_add = getMapFragment().getMap();
 				init(currentLoc);
 			} else if (map_add != null) {
+				// Log.i(TAG,"2");
 				map_add.moveCamera(CameraUpdateFactory
 						.newCameraPosition(map_add_pos));
 			}
@@ -415,7 +436,8 @@ public class MainActivity extends Activity {
 		public void onDestroy() {
 			// TODO Auto-generated method stub
 			super.onDestroy();
-			map_add_pos = map_add.getCameraPosition();
+			if (map_add != null)
+				map_add_pos = map_add.getCameraPosition();
 			// Log.i(TAG,"a");
 		}
 
@@ -508,7 +530,8 @@ public class MainActivity extends Activity {
 		public void onDestroy() {
 			// TODO Auto-generated method stub
 			super.onDestroy();
-			map_guess_pos = map_guess.getCameraPosition();
+			if (map_guess != null)
+				map_guess_pos = map_guess.getCameraPosition();
 			// Log.i(TAG,"a");
 		}
 
@@ -587,6 +610,7 @@ public class MainActivity extends Activity {
 				loc.getLatitude());
 		currentLongtitude = this.getIntent().getDoubleExtra("longtitude",
 				loc.getLongitude());
+		Log.i(TAG, "la: " + currentLatitude + "lo: " + currentLongtitude);
 	}
 
 	// An AsyncTask class for accessing the GeoCoding Web Service
@@ -651,8 +675,9 @@ public class MainActivity extends Activity {
 				map_add.addMarker(markerOptions);
 
 				// Locate the first location
-				if (i == 0)
+				if (i == 0) {
 					map_add.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+				}
 			}
 			dismissWaiting();
 		}
@@ -922,7 +947,10 @@ public class MainActivity extends Activity {
 				response = e.execute(post);
 				String resStr = EntityUtils.toString(response.getEntity());
 				Log.i("response", resStr);
-				return Integer.valueOf(resStr);
+				if (resStr.equals(""))
+					return 0;
+				else
+					return Integer.valueOf(resStr);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -982,6 +1010,51 @@ public class MainActivity extends Activity {
 			} else
 				user.setText(name);
 			score.setText(topUserMap.get(name));
+			user.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					author=((TextView)v).getText().toString();
+					if (author.equals("You")) {
+						Toast.makeText(
+								ctxt,
+								"Are you kidding? Of course you are already friend with yourself!",
+								Toast.LENGTH_LONG).show();
+					} else {
+						Builder builder=new AlertDialog.Builder(ctxt);
+						builder.setTitle("Add Friend")
+								.setMessage(
+										"Are you sure to add "
+												+ author
+												+ " as your new friend?")
+								.setPositiveButton("Yes",
+										new DialogInterface.OnClickListener() {
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which) {
+												// TODO Auto-generated method
+												// stub
+												new AddFriendTask()
+														.execute(author);
+											}
+										})
+								.setNegativeButton("No",
+										new DialogInterface.OnClickListener() {
+
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which) {
+												// TODO Auto-generated method
+												// stub
+												dialog.cancel();
+											}
+										}).show();
+
+					}
+				}
+			});
 			return rowView;
 
 		}
@@ -1046,6 +1119,82 @@ public class MainActivity extends Activity {
 
 	}
 
+	public class AddFriendTask extends AsyncTask<String, Void, Integer> {
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			showWaiting();
+		}
+
+		@Override
+		protected Integer doInBackground(String... arg) {
+			// TODO Auto-generated method stub
+			String friend = arg[0];
+			String username = un;
+			JSONObject m = new JSONObject();
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(HOST_ADDFRIEND);
+			HttpResponse response;
+			try {
+				m.put("username", username);
+				m.put("friend", friend);
+				Log.i(TAG, "string to server " + m.toString());
+				StringEntity se = new StringEntity(m.toString());
+				post.setEntity(se);
+				response = client.execute(post);
+				String resStr = EntityUtils.toString(response.getEntity());
+				Log.i(TAG, "guess response: " + resStr + "");
+				if (resStr.equals("true")) {// add successfully
+					return 1;
+				} else if (resStr.equals("false")) {// already friends
+					return 2;
+				} else
+					// wrong guess
+					return 3;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return 3;
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			switch (result) {
+			case 1:
+				Toast.makeText(getApplication(), "Success!", Toast.LENGTH_SHORT)
+						.show();
+				dismissWaiting();
+				break;
+			case 2:
+				Toast.makeText(getApplication(),
+						"Sorry, you guys are already friends!",
+						Toast.LENGTH_LONG).show();
+				dismissWaiting();
+				break;
+			case 3:
+				Toast.makeText(getApplication(),
+						"Sorry, something is wrong with the network!",
+						Toast.LENGTH_SHORT).show();
+				dismissWaiting();
+				break;
+			default:
+				dismissWaiting();
+				break;
+			}
+
+		}
+
+	}
 	public void showWaiting() {
 		proDialog = new ProgressDialog(MainActivity.this);
 		proDialog.setMessage("Loading...");
@@ -1059,4 +1208,5 @@ public class MainActivity extends Activity {
 		if (proDialog.isShowing())
 			proDialog.dismiss();
 	}
+
 }

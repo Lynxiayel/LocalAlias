@@ -36,4 +36,7 @@
 	<string name="newpassword">New Password</string>
 	<string name="action_logout">Logout</string>
 	<string name="about">About</string>
+	<string name="exit">Exit</string>
+	<string name="otherlogin">Login with Other Accounts</string>
+	<string name="author">Author:</string>
 </resources>

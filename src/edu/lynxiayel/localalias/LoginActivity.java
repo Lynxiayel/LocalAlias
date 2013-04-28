@@ -1,6 +1,7 @@
 package edu.lynxiayel.localalias;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -16,6 +17,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -28,20 +30,37 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.janrain.android.engage.JREngage;
+import com.janrain.android.engage.JREngageDelegate;
+import com.janrain.android.engage.JREngageError;
+import com.janrain.android.engage.net.async.HttpResponseHeaders;
+import com.janrain.android.engage.types.JRActivityObject;
+import com.janrain.android.engage.types.JRDictionary;
+
 public class LoginActivity extends Activity {
+	private final String TAG = "loginActivity";
 	private Button login;
 	private Button register;
+	private Button otherLogin;
 	private EditText username;
 	private EditText password;
 	private CheckBox remember;
-	final private String HOST_LOGIN = "http://lyntwip.sourceforge.net/localaliaslogin.php";
+	final private String HOST_LOGIN = "http://localalias.sourceforge.net/localaliaslogin.php";
+	final private String HOST_REGISTER = "http://localalias.sourceforge.net/localaliasregister.php";
 	private Builder dialog;
 	private Preference pref;
 	private ProgressDialog proDialog;
+	private JREngage mEngage;
+	private JREngageDelegate mEngageDelegate;
+	private static final String ENGAGE_APP_ID = "kboiilgjkodpifganmlj";
+	private static final String ENGAGE_TOKEN_URL = "";
+	private Context ctxt;
+	private String nameByJanrain;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
+		ctxt = this.getApplicationContext();
 		Intent intent = new Intent();
 		pref = new Preference();
 		pref.init(this);
@@ -50,12 +69,15 @@ public class LoginActivity extends Activity {
 			intent.putExtra("un", pref.getSettings()
 					.getString("username", null));
 			intent.setClass(LoginActivity.this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			this.finish();
+			return;
 		}
 		setContentView(R.layout.loginlayout);
 		login = (Button) findViewById(R.id.loginbtn);
 		register = (Button) findViewById(R.id.regbtn);
+		otherLogin = (Button) findViewById(R.id.otherlogin);
 		username = (EditText) findViewById(R.id.usernameedit);
 		password = (EditText) findViewById(R.id.passwordedit);
 		remember = (CheckBox) findViewById(R.id.rememberme);
@@ -72,6 +94,91 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				new LoginTask().execute("register");
 			}
+		});
+
+		mEngageDelegate = new JREngageDelegate() {
+
+			@Override
+			public void jrAuthenticationDidSucceedForUser(
+					JRDictionary auth_info, String provider) {
+				// TODO Auto-generated method stub
+				JRDictionary profile = auth_info.getAsDictionary("profile");
+				nameByJanrain = profile.getAsString("displayName");
+				new RegisterTask().execute();
+			}
+
+			@Override
+			public void jrAuthenticationDidReachTokenUrl(String tokenUrl,
+					HttpResponseHeaders response, String tokenUrlPayload,
+					String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrSocialDidPublishJRActivity(JRActivityObject activity,
+					String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrSocialDidCompletePublishing() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrEngageDialogDidFailToShowWithError(JREngageError error) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrAuthenticationDidNotComplete() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrAuthenticationDidFailWithError(JREngageError error,
+					String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrAuthenticationCallToTokenUrlDidFail(String tokenUrl,
+					JREngageError error, String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrSocialDidNotCompletePublishing() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void jrSocialPublishJRActivityDidFail(
+					JRActivityObject activity, JREngageError error,
+					String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+		};
+		mEngage = JREngage.initInstance(this, ENGAGE_APP_ID, ENGAGE_TOKEN_URL,
+				mEngageDelegate);
+		otherLogin.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mEngage.showAuthenticationDialog();
+			}
+
 		});
 	}
 
@@ -122,6 +229,7 @@ public class LoginActivity extends Activity {
 						pref.setUsername(un);
 						i.putExtra("un", un);
 						i.setClass(LoginActivity.this, MainActivity.class);
+						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(i);
 						finish();
 					} else {
@@ -172,6 +280,67 @@ public class LoginActivity extends Activity {
 
 	}
 
+	private class RegisterTask extends AsyncTask<Void, Void, Integer> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			// showWaiting();
+		}
+
+		@Override
+		protected Integer doInBackground(Void... arg) {
+
+			JSONObject je = new JSONObject();
+			try {
+				je.put("username", nameByJanrain);
+				je.put("password", "");
+				HttpClient e = new DefaultHttpClient();
+				HttpResponse response;
+				HttpPost post = new HttpPost(HOST_REGISTER);
+				StringEntity se = new StringEntity(je.toString());
+				post.setEntity(se);
+				response = e.execute(post);
+				String resStr = EntityUtils.toString(response.getEntity());
+				Log.i("response", resStr);
+				if (resStr.equals("2")) {
+					return 2;
+				} else {
+					return 1;
+				}
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// }
+			return 0;
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			Intent i = new Intent();
+			pref.setUsername(nameByJanrain);
+			i.putExtra("un", nameByJanrain);
+			i.setClass(LoginActivity.this, MainActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(i);
+			// dismissWaiting();
+			finish();
+		}
+	}
+
 	public void showWaiting() {
 		proDialog = new ProgressDialog(LoginActivity.this);
 		proDialog.setMessage("Loading...");
@@ -185,4 +354,5 @@ public class LoginActivity extends Activity {
 		if (proDialog.isShowing())
 			proDialog.dismiss();
 	}
+
 }

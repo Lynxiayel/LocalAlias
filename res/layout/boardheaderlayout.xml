@@ -9,11 +9,13 @@
         android:layout_weight="0.4"
         android:text="@string/username"
         android:gravity="center"
+        android:textSize="24sp"
         />
     <TextView android:id="@+id/headerscore"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.6"
+        android:textSize="24sp"
         android:text="Coins"
         android:gravity="center"/> 
 </LinearLayout>

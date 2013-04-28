@@ -69,7 +69,7 @@
         android:nextFocusDown="@+id/loginbtn"
         android:layout_below="@id/passwordedit"
         android:layout_alignLeft="@id/passwordedit"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/rememberme" />
 
     <Button
@@ -79,6 +79,7 @@
         android:layout_alignLeft="@id/login_title"
         android:layout_below="@id/rememberme"
         android:text="@string/login"
+        android:layout_marginBottom="5dp"
         android:textSize="22sp"
         android:textStyle="bold" >
     </Button>
@@ -89,7 +90,20 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@id/login_title"
         android:layout_below="@id/rememberme"
+        android:layout_marginBottom="10dp"
         android:text="@string/register"
+    	android:textSize="22sp"
+        android:textStyle="bold" >
+    </Button>
+    
+        <Button
+        android:id="@+id/otherlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/login_title"
+        android:layout_alignRight="@id/login_title"
+        android:layout_below="@id/regbtn"
+        android:text="@string/otherlogin"
     	android:textSize="22sp"
         android:textStyle="bold" >
     </Button>

@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewAlias extends Activity {
-	final private String HOST_ADDALIAS = "http://lyntwip.sourceforge.net/localalias/addalias.php";
+	final private String HOST_ADDALIAS = "http://localalias.sourceforge.net/addalias.php";
 	private EditText alias;
 	private TextView locname;
 	private Button cancel;
@@ -89,11 +89,12 @@ public class NewAlias extends Activity {
 				response = client.execute(post);
 				String resStr = EntityUtils.toString(response.getEntity());
 				Log.i(TAG, "add alias response: " + resStr + "");
-				if (resStr.contains("1")) {
-					return 1;
-				} else {
+				if (resStr.equals("3")) {
+					return 3;
+				} else if (resStr.equals("2")) {
 					return 2;
-				}
+				} else
+					return 1;
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -104,7 +105,7 @@ public class NewAlias extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return 3;
+			return 1;
 		}
 
 		@Override
@@ -113,14 +114,22 @@ public class NewAlias extends Activity {
 			super.onPostExecute(result);
 			switch (result) {
 			case 1:
-				Toast.makeText(getApplication(), "New Alias Added.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplication(),
+						"Failed to add, please try again.", Toast.LENGTH_SHORT)
+						.show();
+				dismissWaiting();
+				break;
+			case 2:
+				Toast.makeText(getApplication(), "New alias added, and you get 1 coin reward!",
+						Toast.LENGTH_SHORT).show();
 				dismissWaiting();
 				finish();
 				break;
-			case 2:
 			case 3:
-				Toast.makeText(getApplication(),
-						"Failed to add, please try again.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(
+						getApplication(),
+						"This alias is already added. Come on, show me something new!",
+						Toast.LENGTH_SHORT).show();
 				dismissWaiting();
 				break;
 			default:
@@ -131,16 +140,18 @@ public class NewAlias extends Activity {
 		}
 
 	}
-	public void showWaiting(){
-	    proDialog = new ProgressDialog(NewAlias.this);
-        proDialog.setMessage("Loading...");
-        proDialog.setIndeterminate(false);
-        proDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        proDialog.setCancelable(true);
-        proDialog.show();
+
+	public void showWaiting() {
+		proDialog = new ProgressDialog(NewAlias.this);
+		proDialog.setMessage("Loading...");
+		proDialog.setIndeterminate(false);
+		proDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		proDialog.setCancelable(true);
+		proDialog.show();
 	}
-	public void dismissWaiting(){
-		if(proDialog.isShowing())
+
+	public void dismissWaiting() {
+		if (proDialog.isShowing())
 			proDialog.dismiss();
 	}
 }

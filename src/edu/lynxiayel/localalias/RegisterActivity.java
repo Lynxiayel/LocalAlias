@@ -14,8 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,10 +31,9 @@ public class RegisterActivity extends Activity {
 	private EditText username;
 	private Button submit;
 	private Button cancel;
-	final private String HOST_REGISTER = "http://lyntwip.sourceforge.net/localalias/localaliasregister.php";
+	final private String HOST_REGISTER = "http://localalias.sourceforge.net/localaliasregister.php";
 	private Preference pref;
 	final private String TAG = "register";
-	private Builder dialog;
 	private ProgressDialog proDialog;
 
 	public void onCreate(Bundle b) {
@@ -49,7 +46,6 @@ public class RegisterActivity extends Activity {
 		passwordConf = (EditText) findViewById(R.id.regpwconfirm);
 		submit = (Button) findViewById(R.id.regsubmit);
 		cancel = (Button) findViewById(R.id.regcancel);
-		dialog = new AlertDialog.Builder(this);
 
 		submit.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
@@ -94,7 +90,7 @@ public class RegisterActivity extends Activity {
 					response = e.execute(post);
 					String resStr = EntityUtils.toString(response.getEntity());
 					Log.i("response", resStr);
-					if (resStr.equals("2")) {
+					if (resStr.equals("truetrue")) {
 						return 2;
 					} else {
 						return 1;
@@ -144,6 +140,7 @@ public class RegisterActivity extends Activity {
 					Intent i = new Intent();
 					i.putExtra("un", username.getText().toString());
 					i.setClass(RegisterActivity.this, MainActivity.class);
+					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(i);
 					dismissWaiting();
 					finish();

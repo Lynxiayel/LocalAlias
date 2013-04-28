@@ -6,7 +6,9 @@
     <TextView android:id="@+id/scoreuser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
         android:layout_weight="0.4"
+        android:textSize="20sp"
         android:gravity="center"
         android:textIsSelectable="true"/>
     <TextView android:id="@+id/scorescore"
@@ -14,5 +16,6 @@
         android:layout_height="match_parent"
         android:layout_weight="0.6"
         android:gravity="center"
+        android:textSize="20sp"
         android:textIsSelectable="true"/> 
 </LinearLayout>

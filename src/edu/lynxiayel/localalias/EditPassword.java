@@ -28,7 +28,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditPassword extends Activity {
-	final private String HOST_EDITPASSWORD = "http://lyntwip.sourceforge.net/localalias/editpassword.php";
+	final private String HOST_EDITPASSWORD = "http://localalias.sourceforge.net/editpassword.php";
 	private EditText password;
 	private EditText passwordConf;
 	private String username;
